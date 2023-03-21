@@ -1,0 +1,106 @@
+﻿@model Suppliers.Models.SupplierEntity
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Suppliers</h1>
+
+</div>
+
+
+
+    @{ if (@TempData["Message"] != null)
+        {
+            <div class="alert alert-success alert-dismissible" id="MyWorkflow">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h4><i class="icon fa fa-check"></i> Notification!</h4>
+                <p> @TempData["Message"] </p>
+
+            </div>
+        }
+    }
+    <br />
+    <div class="row">
+        <div id="">
+            @using (Html.BeginForm("savecompany", "Home", FormMethod.Post, new { @id = "save", @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+            {
+                <div class="row">
+                    <div class="form-group col-lg-6">
+                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", required = "required", @Value = ViewBag.name } })
+                    </div>
+
+
+                    <div class="form-group col-lg-6">
+
+                        @Html.LabelFor(model => model.TelephoneNO, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.TelephoneNO, new { htmlAttributes = new { @class = "form-control", onkeypress = "return isNumberKey(event)", required = "required", @min = "7" } })
+                    </div>
+                </div>
+
+
+                <button type="submit" value="Save" class="btn btn-sm btn-primary"><span class="fa fa-search">&nbsp;Save</span></button>
+
+            }
+        </div>
+  
+
+    <br />
+    
+        @using (Html.BeginForm("SearchCompany", "Home", FormMethod.Post, new { @id = "", @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+        {
+            <div class="modal-header ">
+                <br>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label>Search By Company Name:<span class="required" style="color:red;"> * </span></label>
+                            @Html.TextBoxFor(Model => Model.Name, new { @class = "form-control", required = "required", placeholder = "Enter Company Name" })
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <br>
+                            <button type="submit" value="Save" class="btn btn-sm btn-primary"><span class="fa fa-search">&nbsp;Search</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- modal-body -->
+        }
+
+        @using (Html.BeginForm("SearchCompany", "Home", FormMethod.Post, new { @id = "", @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+        {
+            if (ViewBag.Data != null)
+            {
+                <div class="col-md-12" id="show">
+                    <br>
+                    <br>
+                    <div class="box box-primary">
+                        <div class="box-body chat" id="chat-box">
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <label>Telephone Number:</label>
+                                            @Html.TextBoxFor(Model => Model.TelephoneNO, new { @class = "form-control", @readonly = "readonly", @Value = ViewBag.tel })
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box (chat box) -->
+                </div>
+
+            }
+        }
+
+
+    </div>
